@@ -66,6 +66,7 @@ export default class EffectSection extends Section {
     this._isometric = null;
     this._shapes = [];
     this._xray = null;
+    this._volume = 0;
     this._playEffect = true;
   }
 
@@ -1949,6 +1950,23 @@ export default class EffectSection extends Section {
   }
 
   /**
+   * Sets the volume of the video if the effect file is a video with sound.
+   *
+   * @param {number} inVolume
+   * @returns this
+   */
+  volume(inVolume) {
+    if (!is_real_number(inVolume))
+      throw this.sequence._customError(
+        this,
+        "volume",
+        "inVolume must be of type number"
+      );
+    this._volume = Math.max(0, Math.min(1.0, inVolume));
+    return this;
+  }
+
+  /**
    * Configures the isometric configuration of this effect
    *
    * @param inOptions
@@ -2462,6 +2480,11 @@ export default class EffectSection extends Section {
       screenSpaceAnchor: this._screenSpaceAnchor,
       screenSpacePosition: this._screenSpacePosition,
       screenSpaceScale: this._screenSpaceScale,
+
+      /**
+       * Audio properties
+       */
+      volume: this._volume,
 
       nameOffsetMap: this.sequence.nameOffsetMap,
     });

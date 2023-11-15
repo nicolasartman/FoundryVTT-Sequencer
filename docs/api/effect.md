@@ -203,7 +203,7 @@ Defines the base folder that will prepend to the file path. This is mainly just 
 - Wildcard filepath: `.file("modules/jb2a_patreon/Library/Generic/Portals/Portal_Bright_*.webm")`
 - Database Path: `.file("jb2a.detect_magic.circle.blue")`
 
-Declares which .webm to be played, but you can also do that when first initializing the effect.
+Declares which .webm to be played, but you can also do that when first initializing the effect. If the video has an audio track, it will be muted by default.
 
 This may also be an array of paths, which will be randomly picked from each time the effect is played.
 
@@ -680,7 +680,7 @@ const source = canvas.tokens.controlled[0];
 const target = Array.from(game.user.targets)[0];
 
 // Find effects on source with name "arrow"
-const currentEffects = Sequencer.EffectManager.getEffects({ source: source, name: "arrow" }) 
+const currentEffects = Sequencer.EffectManager.getEffects({ source: source, name: "arrow" })
 
 // If none were found
 if( currentEffects.length != 0 ) {
@@ -1020,10 +1020,10 @@ The optional options are as follows:
 - `radius`: `number` - The radius of `circle` shapes, and the radius of the `roundedRect` edges
 - `width`: `number` - The width of `rectangle`, `ellipse`, and `roundedRect` shapes
 - `height`: `number` - The height of `rectangle`, `ellipse`, and `roundedRect` shapes
-- `points`: `Array<[number, number]|{ x: number, y: number}>` - The points of a `polygon` object 
+- `points`: `Array<[number, number]|{ x: number, y: number}>` - The points of a `polygon` object
 - `gridUnits`: `boolean` - Whether the positions or height/width should be considered grid units (1 = one grid on the canvas grid)
 - `name`: `string` - What name to give this shape, which can be used with `.animateProperty()` and `.loopProperty()` through `shapes.[name]`
-- `fillColor`: `string|number` - The fill color of the shape, must be decimal (`0xFF0000`) or hexadecimal (`"#FF000000"`)  
+- `fillColor`: `string|number` - The fill color of the shape, must be decimal (`0xFF0000`) or hexadecimal (`"#FF000000"`)
 - `fillAlpha`: `number` - The alpha of the fill color
 - `alpha`: `number` - The alpha of the entire shape
 - `lineSize`: `number` - The size of the outline of the shape (in pixels)
@@ -1043,6 +1043,13 @@ Causes the effect to ignore vision-based masking.
 
 Masks the effect to the given object or objects. If no object is given, the effect will be masked to the source of the effect.
 
+## Volume
+
+`.volume(0.5)`
+
+A normalized value between `0.0` and `1.0` which determines the volume of the video's sound (if any). Defaults to `0`.
+
+**Note:** This is affected by each client's volume settings in Foundry, so if you or your users cannot hear the sound, double check your Interface Volume.
 
 ## Tie To Documents
 
